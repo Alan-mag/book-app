@@ -1,10 +1,12 @@
 'use strict';
 const express = require('express');
 const app = express();
-const PORT = process.env.PORT || 3000;
-app.use(express.static('./'));
-app.get('/', (request, response) => {
-  response.sendFile('index.html', { root: './' });
+const PORT = process.env.PORT || 8080;
+
+app.set('view engine', 'ejs');
+
+app.get('/', (req, res) => {
+  res.render('pages/index');
 });
-app.use('*', (request, response) => response.send('Sorry, that route does not exist.'))
+
 app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
