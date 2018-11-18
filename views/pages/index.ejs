@@ -1,19 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  
+    <title>Book Application</title>
+    <link rel="stylesheet" type="text/css" href="styles/reset.css" />
+    <link rel="stylesheet" type="text/css" href="styles/base.css" />
 </head>
 <body class="container">
-
 <header>
-   
+    <!-- <%- include ../layout/nav.ejs %> -->
 </header>
 
 <main>
     <div class="jumbotron">
-        <h1>This is great</h1>
-        <p>Welcome to templating using EJS</p>
+        <h1>Book Shelf : Library of Books</h1>
+        <p>Search and a Make Collection</p>
     </div>
+    
+    <form action="/search" method="get">
+        <legend>Search For Books!</legend>
+
+        <label for="title">
+            <span>Title</span>
+            <input class="" type="radio" name="searchType" value="title" required>
+        </label>
+
+        <label>
+            <span>Author</span>
+            <input class="" type="radio" name="searchType" value="author" required>
+        </label>
+
+        <label>Book
+            <input type="text" name="search">
+        </label>
+        <button>Search</button>
+    </form>
+
 </main>
 
 <footer>
