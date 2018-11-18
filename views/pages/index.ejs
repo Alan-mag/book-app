@@ -6,7 +6,6 @@
     <link rel="stylesheet" type="text/css" href="styles/base.css" />
 </head>
 <body class="container">
-
 <header>
     <%- include ../layout/nav.ejs %>
 </header>
@@ -16,6 +15,15 @@
         <h1>This is great</h1>
         <p>Welcome to templating using EJS</p>
     </div>
+    
+    <form action="/search" method="get">
+        <legend>Search For Book</legend>
+        <label>Book
+            <input type="text" name="search">
+        </label>
+        <button>Search</button>
+    </form>
+
 </main>
 
 <footer>

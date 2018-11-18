@@ -31,13 +31,14 @@ function Book(data) {
 }
 
 Book.fetch = (query) => {
-  const _URL = `https://www.googleapis.com/books/v1/volumes?q=${query.data}`;
-  return superagent.get(_URL)
+  let url = `https://www.googleapis.com/books/v1/volumes?q=${query}`;
+  
+  return superagent.get(url)
     .then(result => {
       console.log('Got data from API');
       if (!result.body) { throw 'No Data'; }
       else {
-        return result.body.items.map(searchedBook => {
+        return result.body.items.slice(0, 10).map(searchedBook => {
           return new Book(searchedBook);
         });
       }
@@ -49,7 +50,7 @@ Book.fetch = (query) => {
 
 // for when we setup db
 function getBook(req, res) {
-  Book.fetch(req).then(data => {
+  Book.fetch(req.query.search).then(data => {
     res.send(data);
   })
 }
