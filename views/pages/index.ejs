@@ -17,7 +17,18 @@
     </div>
     
     <form action="/search" method="get">
-        <legend>Search For Book</legend>
+        <legend>Search For Books!</legend>
+
+        <label for="title">
+            <span>Title</span>
+            <input class="" type="radio" name="searchType" value="title" required>
+        </label>
+
+        <label>
+            <span>Author</span>
+            <input class="" type="radio" name="searchType" value="author" required>
+        </label>
+
         <label>Book
             <input type="text" name="search">
         </label>

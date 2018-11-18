@@ -30,8 +30,10 @@ function Book(data) {
   this.language = data.volumeInfo.language;
 }
 
-Book.fetch = (query) => {
+Book.fetch = (query, searchType) => {
   let url = `https://www.googleapis.com/books/v1/volumes?q=${query}`;
+  if (searchType === 'title') { url+= `+intitle:${query}`;}
+  if (searchType === 'author') { url+= `+inauthor:${query}`;}
   
   return superagent.get(url)
     .then(result => {
@@ -50,7 +52,7 @@ Book.fetch = (query) => {
 
 // for when we setup db
 function getBook(req, res) {
-  Book.fetch(req.query.search).then(data => {
+  Book.fetch(req.query.search, req.query.searchType).then(data => {
     res.send(data);
   })
 }
