@@ -15,7 +15,8 @@ app.get('/', (req, res) => {
 });
 
 // ROUTES
-app.get('/search', getBook);
+app.get('/searches', getBook);
+app.post('/searches', buildSearch);
 
 // ------------- BOOK ----- //
 function Book(data) {
@@ -28,6 +29,27 @@ function Book(data) {
   this.avg_rating = data.volumeInfo.averageRating;
   this.image = data.volumeInfo.imageLinks.small;
   this.language = data.volumeInfo.language;
+}
+
+function buildSearch(req, res) {
+  let url = `https://www.googleapis.com/books/v1/volumes?q=${req.query.search}`;
+  if (req.query.searchType === 'title') { url+= `+intitle:${req.query.search}`;}
+  if (req.query.searchType === 'author') { url+= `+inauthor:${req.query.search}`;}
+  
+  return superagent.get(url)
+    .then(result => {
+      console.log('Got data from API');
+      if (!result.body) { throw 'No Data'; }
+      else {
+        return result.body.items.slice(0, 10).map(searchedBook => {
+          return new Book(searchedBook);
+        });
+      }
+    })
+    .then(results => res.render('pages/searches/show', {searchResults: results}))
+    .catch(err => {
+      handleError(err);
+    })
 }
 
 Book.fetch = (query, searchType) => {
@@ -54,6 +76,7 @@ Book.fetch = (query, searchType) => {
 function getBook(req, res) {
   Book.fetch(req.query.search, req.query.searchType).then(data => {
     res.send(data);
+    res.render('pages/searches/show', {searchResults: data});
   })
 }
 

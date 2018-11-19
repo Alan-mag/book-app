@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Book Application</title>
+    <link rel="stylesheet" type="text/css" href="styles/reset.css" />
+    <link rel="stylesheet" type="text/css" href="styles/base.css" />
+</head>
+<body class="container">
+<header>
+  <%- include ../../layout/nav.ejs %>
+</header>
+
+<main>
+    <ul>
+        <% searchResults.forEach(function(book){ %>
+          <li>book.title</li>
+        <% }); %>
+      </ul>
+</main>
+
+<footer>
+  
+</footer>
+
+</body>
+</html>
