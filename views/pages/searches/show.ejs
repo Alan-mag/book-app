@@ -12,8 +12,8 @@
 
 <main>
     <ul>
-        <% searchResults.forEach(function(book){ %>
-          <li>book.title</li>
+        <% searchResults.forEach(function(book) { %>
+          <li><%= book.title %> - <%= book.author %></li>
         <% }); %>
       </ul>
 </main>

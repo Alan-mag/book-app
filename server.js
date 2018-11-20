@@ -3,12 +3,23 @@ const express = require('express');
 const cors = require('cors');
 const superagent = require('superagent');
 const pg = require('pg');
+const methodoverride = require('method-override');
 const app = express();
 const PORT = process.env.PORT || 8080;
 
 app.set('view engine', 'ejs');
 
+// application middleware
+app.use(express.urlencoded({extended:true}));
 app.use(express.static(__dirname + '/public'));
+
+app.use(methodoverride((req, res) => {
+  if(typeof(req.body) === 'object' && '_method' in req.body){
+    let method = req.body._method;
+    delete(req.body._method);
+    return method;
+  }
+}));
 
 app.get('/', (req, res) => {
   res.render('pages/index');
@@ -20,22 +31,22 @@ app.post('/searches', buildSearch);
 
 // ------------- BOOK ----- //
 function Book(data) {
-  this.title = data.volumeInfo.title;
-  this.author = data.volumeInfo.authors;
-  this.publisher = data.volumeInfo.publisher;
-  this.description = data.volumeInfo.description;
-  this.page_count = data.volumeInfo.pageCount;
-  this.category = data.volumeInfo.mainCategory;
-  this.avg_rating = data.volumeInfo.averageRating;
-  this.image = data.volumeInfo.imageLinks.small;
-  this.language = data.volumeInfo.language;
+  this.title = data.volumeInfo.title ? data.volumeInfo.title : 'No Title';
+  this.author = data.volumeInfo.authors ? data.volumeInfo.authors : 'Author(s) Unknown';
+  this.publisher = data.volumeInfo.publisher ? data.volumeInfo.publisher : 'Publisher Unknown';
+  this.description = data.volumeInfo.description ? data.volumeInfo.description : 'Description Unknown';
+  this.page_count = data.volumeInfo.pageCount ? data.volumeInfo.pageCount : 'Page Count Unknown';
+  this.category = data.volumeInfo.mainCategory ? data.volumeInfo.mainCategory : 'Genre/Category Unknown';
+  this.avg_rating = data.volumeInfo.averageRating ? data.volumeInfo.averageRating : 'Rating Unknown';
+  this.image = data.volumeInfo.imageLinks.small ? data.volumeInfo.imageLinks.small : 'No Link';
+  this.language = data.volumeInfo.language ? data.volumeInfo.language : 'Unknown Language';
 }
 
 function buildSearch(req, res) {
-  let url = `https://www.googleapis.com/books/v1/volumes?q=${req.query.search}`;
-  if (req.query.searchType === 'title') { url+= `+intitle:${req.query.search}`;}
-  if (req.query.searchType === 'author') { url+= `+inauthor:${req.query.search}`;}
-  
+  let url = `https://www.googleapis.com/books/v1/volumes?q=${req.body.search}`;
+  if (req.body.searchType === 'title') { url+= `+intitle:${req.body.search}`;}
+  if (req.body.searchType === 'author') { url+= `+inauthor:${req.body.search}`;}
+
   return superagent.get(url)
     .then(result => {
       console.log('Got data from API');
@@ -76,7 +87,7 @@ Book.fetch = (query, searchType) => {
 function getBook(req, res) {
   Book.fetch(req.query.search, req.query.searchType).then(data => {
     res.send(data);
-    res.render('pages/searches/show', {searchResults: data});
+    // res.render('pages/searches/show', {searchResults: data});
   })
 }
 
