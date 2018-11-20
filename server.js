@@ -29,6 +29,9 @@ app.get('/', (req, res) => {
 app.get('/searches', getBook);
 app.post('/searches', buildSearch);
 
+//error page
+app.get('/error', (req, res) =>{ res.render('pages/error'); });
+
 // ------------- BOOK ----- //
 function Book(data) {
   this.title = data.volumeInfo.title ? data.volumeInfo.title : 'No Title';
@@ -50,7 +53,7 @@ function buildSearch(req, res) {
   return superagent.get(url)
     .then(result => {
       console.log('Got data from API');
-      if (!result.body) { throw 'No Data'; }
+      if (!result.body) { res.render('pages/error'); }
       else {
         return result.body.items.slice(0, 10).map(searchedBook => {
           return new Book(searchedBook);
@@ -59,7 +62,7 @@ function buildSearch(req, res) {
     })
     .then(results => res.render('pages/searches/show', {searchResults: results}))
     .catch(err => {
-      handleError(err);
+      handleError(err, res);
     })
 }
 
@@ -79,7 +82,7 @@ Book.fetch = (query, searchType) => {
       }
     })
     .catch(err => {
-      handleError(err);
+      handleError(err, res);
     })
 }
 
@@ -87,16 +90,12 @@ Book.fetch = (query, searchType) => {
 function getBook(req, res) {
   Book.fetch(req.query.search, req.query.searchType).then(data => {
     res.send(data);
-    // res.render('pages/searches/show', {searchResults: data});
   })
 }
 
 // ERROR HANDLER //
-function handleError(err, response) {
-  console.error('ERR', err);
-  if (response) {
-    response.status(500).send('Sorry you got this error, maybe break time?');
-  }
+function handleError(error, res){
+  res.render('pages/error');
 }
 
 app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
