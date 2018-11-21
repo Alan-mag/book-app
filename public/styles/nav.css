@@ -1,0 +1,23 @@
+#nav {
+  display: flex;
+  flex-direction: row;
+  background-color: darkslategrey;
+  color: white;
+  font-family: 'lato';
+  align-items: center;
+}
+  #title {
+    margin-left: 10px;
+  }
+  #subtitle {
+    margin-left: 15px;
+    opacity: .8;
+  }
+  #menu {
+    margin-left: 65%;
+  }
+    #menu a {
+      text-decoration: none;
+      color: white;
+      opacity: .7;
+    }
