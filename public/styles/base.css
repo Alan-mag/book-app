@@ -1,3 +1,8 @@
 body {
-  background: lightblue;
+  display: flex;
+  flex-direction: column;
+}
+
+header {
+  background-color: red;
 }
