@@ -21,3 +21,14 @@
       color: white;
       opacity: .7;
     }
+
+.subheading {
+  display: flex;
+  justify-content: center;
+  background-color: darkcyan;
+  color: white;
+  display: flex;
+  height: 10vh;
+  align-items: center;
+  font-family: Arial, Helvetica, sans-serif;
+}

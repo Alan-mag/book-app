@@ -5,6 +5,7 @@
     <link rel="stylesheet" type="text/css" href="styles/reset.css" />
     <link rel="stylesheet" type="text/css" href="styles/base.css" />
     <link rel="stylesheet" type="text/css" href="styles/nav.css" />
+    <link rel="stylesheet" type="text/css" href="styles/form.css" />
 </head>
 <body class="container">
 <header>
@@ -12,9 +13,12 @@
 </header>
 
 <main>
+    <div class="subheading">
+        <h3>Search By Title or Author</h3>
+    </div>
     
     <form action="/searches" method="post">
-        <legend>Search For Books!</legend>
+        <input id="search-input" type="text" name="search" placeholder="Enter Book Title or Author">
 
         <label for="title">
             <span>Title</span>
@@ -25,18 +29,11 @@
             <span>Author</span>
             <input class="" type="radio" name="searchType" value="author" required>
         </label>
-
-        <label>Book
-            <input type="text" name="search">
-        </label>
-        <button>Search</button>
+        <button id="search-btn">Search the Google Books API</button>
     </form>
-
-</main>
-
-<footer>
+    <footer>
   
-</footer>
-
+    </footer>
+</main>
 </body>
 </html>
