@@ -1,0 +1,34 @@
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-grow: 1;
+}
+
+form label {
+  background-color: darkslategrey;
+  padding: 15px;
+  margin: 5px 0px 5px 0px;
+  width: 80%;
+  border-radius: 5px;
+  color: white;
+}
+
+#search-btn {
+  width: 80%;
+  margin: 5px 0px 5px 0px;
+  border-radius: 5px;
+  background-color: darkslategrey;
+  color: white;
+  padding: 15px;
+  font-size: 15px;
+}
+
+#search-input {
+  width: 80%;
+  margin: 15px 0px 5px 0px;
+  border-radius: 5px;
+  padding: 15px;
+  font-size: 15px;
+  border: 1px solid lightslategray;
+}

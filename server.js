@@ -46,9 +46,10 @@ function Book(data) {
 }
 
 function buildSearch(req, res) {
+  console.log(req.body)
   let url = `https://www.googleapis.com/books/v1/volumes?q=${req.body.search}`;
-  if (req.body.searchType === 'title') { url+= `+intitle:${req.body.search}`;}
-  if (req.body.searchType === 'author') { url+= `+inauthor:${req.body.search}`;}
+  if (req.body.searchType === 'title') { url += `+intitle:${req.body.search}`;}
+  if (req.body.searchType === 'author') { url += `+inauthor:${req.body.search}`;}
 
   return superagent.get(url)
     .then(result => {
