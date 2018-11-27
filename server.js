@@ -36,6 +36,7 @@ app.get('/error', (req, res) =>{ res.render('pages/error'); });
 function Book(data) {
   this.title = data.volumeInfo.title ? data.volumeInfo.title : 'No Title';
   this.author = data.volumeInfo.authors ? data.volumeInfo.authors : 'Author(s) Unknown';
+  this.isbn = data.volumeInfo.industryIdentifiers.type ? data.volumeInfo.industryIdentifiers.type : 'no isbn';
   this.publisher = data.volumeInfo.publisher ? data.volumeInfo.publisher : 'Publisher Unknown';
   this.description = data.volumeInfo.description ? data.volumeInfo.description : 'Description Unknown';
   this.page_count = data.volumeInfo.pageCount ? data.volumeInfo.pageCount : 'Page Count Unknown';
