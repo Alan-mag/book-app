@@ -41,7 +41,7 @@ function Book(data) {
   this.page_count = data.volumeInfo.pageCount ? data.volumeInfo.pageCount : 'Page Count Unknown';
   this.category = data.volumeInfo.mainCategory ? data.volumeInfo.mainCategory : 'Genre/Category Unknown';
   this.avg_rating = data.volumeInfo.averageRating ? data.volumeInfo.averageRating : 'Rating Unknown';
-  this.image = data.volumeInfo.imageLinks.small ? data.volumeInfo.imageLinks.small : 'No Link';
+  this.image = data.volumeInfo.imageLinks.smallThumbnail ? data.volumeInfo.imageLinks.smallThumbnail : 'No Link';
   this.language = data.volumeInfo.language ? data.volumeInfo.language : 'Unknown Language';
 }
 

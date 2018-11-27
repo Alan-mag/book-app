@@ -28,7 +28,8 @@
   background-color: darkcyan;
   color: white;
   display: flex;
-  height: 10vh;
+  height: 3.5vh;
+  width: 100%;
   align-items: center;
   font-family: Arial, Helvetica, sans-serif;
 }
