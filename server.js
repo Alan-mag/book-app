@@ -1,6 +1,6 @@
 'use strict';
+require('dotenv').config();
 const express = require('express');
-const cors = require('cors');
 const superagent = require('superagent');
 const pg = require('pg');
 const methodoverride = require('method-override');
@@ -12,6 +12,10 @@ app.set('view engine', 'ejs');
 // application middleware
 app.use(express.urlencoded({extended:true}));
 app.use(express.static(__dirname + '/public'));
+
+const client = new pg.Client(process.env.DATABASE_URL);
+client.connect();
+client.on('error', err => console.error(err));
 
 app.use(methodoverride((req, res) => {
   if(typeof(req.body) === 'object' && '_method' in req.body){
@@ -26,6 +30,7 @@ app.get('/', (req, res) => {
 });
 
 // ROUTES
+app.get('/saved', getBookCollection);
 app.get('/searches', getBook);
 app.post('/searches', buildSearch);
 
@@ -95,9 +100,17 @@ function getBook(req, res) {
   })
 }
 
+function getBookCollection(req, res) {
+  const SQL = `SELECT * FROM books;`;
+
+  return client.query(SQL)
+    .then(results => res.render('pages/saved', {books: results.rows}))
+    .catch(handleError);
+}
+
 // ERROR HANDLER //
 function handleError(error, res){
-  res.render('pages/error');
+  res.render('pages/error', {error: 'Uh Oh'});
 }
 
 app.listen(PORT, () => console.log(`Listening on port ${PORT}`));

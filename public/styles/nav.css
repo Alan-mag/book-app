@@ -15,11 +15,13 @@
   }
   #menu {
     margin-left: 65%;
+    display: flex;
   }
     #menu a {
       text-decoration: none;
       color: white;
       opacity: .7;
+      margin-left: 10px;
     }
 
 .subheading {
