@@ -13,19 +13,20 @@
 
 <main>
     <div class="subheading">
-        <h3>Saved Book Collection: <%= books[0].bookshelf %></h3>
+        <h3>Saved Book Collection %></h3>
     </div>
     <% books.forEach(function(book) { %>
         <div class="book-card">
             <div class="image-container">
                 <img src="<%= book.image_url %>" />
             </div>
+            <button><a href="books/<%= book.id %>">See Details</a></button>
             <h3><%= book.title %></h3>
             <h5><%= book.authors %></h5>
             <div>
-              <p class="description"><%= book.book_description %></p>
+                <p class="description"><%= book.book_description %></p>
             </div>
-          </div>
+        </div>
     <% }); %>
 </main>
 <footer>

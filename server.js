@@ -31,6 +31,7 @@ app.get('/', (req, res) => {
 
 // ROUTES
 app.get('/saved', getBookCollection);
+app.get('/books/:book_id', getSingleBook);
 app.get('/searches', getBook);
 app.post('/searches', buildSearch);
 
@@ -105,6 +106,14 @@ function getBookCollection(req, res) {
 
   return client.query(SQL)
     .then(results => res.render('pages/saved', {books: results.rows}))
+    .catch(handleError);
+}
+
+function getSingleBook(req, res) {
+  let SQL = `SELECT * FROM books WHERE id=$1;`;
+  let values = [req.params.book_id];
+  return client.query(SQL, values)
+    .then(result => res.render('pages/books/show', {book: result.rows[0]}))
     .catch(handleError);
 }
 
