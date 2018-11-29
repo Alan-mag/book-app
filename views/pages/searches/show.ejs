@@ -25,7 +25,12 @@
             <h5><%= book.author %></h5>
             <div>
               <p class="description"><%= book.description %></p>
-              <form action='/save' method='POST'>
+              <form action='/books' method='POST'>
+                <select>
+                  <option value="favorites">Favorites</option>
+                  <option value="sci-fi">Sci-Fi</option>
+                  <option value="biographies">Biographies</option>
+                </select>
                 <input type="hidden" name="title" value="<%= book.title %>">
                 <input type="hidden" name="authors" value="<%= book.authors %>">
                 <input type="hidden" name="image_url" value="<%= book.image %>">
