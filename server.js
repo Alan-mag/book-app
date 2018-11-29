@@ -34,6 +34,7 @@ app.get('/saved', getBookCollection);
 app.get('/books/:book_id', getSingleBook);
 app.get('/searches', getBook);
 app.post('/searches', buildSearch);
+app.post('/save', saveBook);
 
 //error page
 app.get('/error', (req, res) =>{ res.render('pages/error'); });
@@ -116,6 +117,22 @@ function getSingleBook(req, res) {
     .then(result => res.render('pages/books/show', {book: result.rows[0]}))
     .catch(handleError);
 }
+
+function saveBook(req, res) {
+  const SQL = `
+    INSERT INTO books (authors, title, isbn, image_url, book_description)
+    VALUES($1, $2, $3, $4, $5) RETURNING id;
+  `;
+  let values = [req.body.authors, req.body.title, req.body.isbn, req.body.image_url, req.body.book_description];
+
+  return client.query(SQL, values)
+    .then(book => {
+      res.redirect(`/books/${book.rows[0].id}`)
+    })
+    .catch(error => handleError(error))
+}
+
+
 
 // ERROR HANDLER //
 function handleError(error, res){

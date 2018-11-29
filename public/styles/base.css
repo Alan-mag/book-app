@@ -69,3 +69,7 @@ main {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+.update-form {
+  display: none;
+}
