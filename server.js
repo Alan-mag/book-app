@@ -32,7 +32,6 @@ app.get('/', (req, res) => {
 // ROUTES
 app.get('/saved', getBookCollection);
 app.get('/books/:book_id', getSingleBook);
-app.get('/searches', getBook);
 app.post('/searches', bookSearch);
 app.post('/books', saveBook);
 
@@ -73,33 +72,6 @@ function bookSearch(req, res) {
     .catch(err => {
       handleError(err, res);
     })
-}
-
-Book.fetch = (query, searchType) => {
-  let url = `https://www.googleapis.com/books/v1/volumes?q=${query}`;
-  if (searchType === 'title') { url+= `+intitle:${query}`;}
-  if (searchType === 'author') { url+= `+inauthor:${query}`;}
-  
-  return superagent.get(url)
-    .then(result => {
-      console.log('Got data from API');
-      if (!result.body) { throw 'No Data'; }
-      else {
-        return result.body.items.slice(0, 10).map(searchedBook => {
-          return new Book(searchedBook);
-        });
-      }
-    })
-    .catch(err => {
-      handleError(err, res);
-    })
-}
-
-// for when we setup db
-function getBook(req, res) {
-  Book.fetch(req.query.search, req.query.searchType).then(data => {
-    res.send(data);
-  })
 }
 
 function getBookCollection(req, res) {
