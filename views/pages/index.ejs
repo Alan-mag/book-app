@@ -1,39 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <title>Book Application</title>
-    <link rel="stylesheet" type="text/css" href="styles/reset.css" />
-    <link rel="stylesheet" type="text/css" href="styles/base.css" />
-    <link rel="stylesheet" type="text/css" href="styles/nav.css" />
-    <link rel="stylesheet" type="text/css" href="styles/form.css" />
-</head>
+
+<%- include ../layout/head.ejs %>
+
 <body class="container">
-<header>
-    <%- include ../layout/nav.ejs %>
-</header>
-
-<main>
-    <div class="subheading">
-        <h3>Search By Title or Author</h3>
-    </div>
-    
-    <form action="/searches" method="post">
-        <input id="search-input" type="text" name="search" placeholder="Enter Book Title or Author">
-
-        <label for="title">
-            <span>Title</span>
-            <input class="" type="radio" name="searchType" value="title" required>
-        </label>
-
-        <label for="author">
-            <span>Author</span>
-            <input class="" type="radio" name="searchType" value="author" required>
-        </label>
-        <button id="search-btn">Search the Google Books API</button>
-    </form>
-</main>
-<footer>
-  
-</footer>
+    <header>
+        <%- include ../layout/nav.ejs %>
+    </header>
+    <main>
+        <%- include('../layout/subheader.ejs', {title: 'Search By Title or Author'}); %>
+        <%- include ../pages/searches/new %>
+    </main>
+    <%- include ../layout/footer.ejs %>
 </body>
+
 </html>

@@ -1,12 +1,12 @@
 
 function selectBook(bk) {
   console.log('you selected ', bk)
-  $('.update-form').toggle('on')
+  $('.edit-div').toggle('on')
 }
 
 function init() {
   // event handlers
-  
+  console.log('app js here')
 }
 
 $(document).ready(function() {
