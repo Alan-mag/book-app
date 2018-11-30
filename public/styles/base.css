@@ -70,6 +70,10 @@ main {
   text-overflow: ellipsis;
 }
 
-.update-form {
+.edit-div {
   display: none;
+}
+
+.footer-text {
+  margin: 0;
 }

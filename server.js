@@ -1,5 +1,7 @@
 'use strict';
+
 require('dotenv').config();
+
 const express = require('express');
 const superagent = require('superagent');
 const pg = require('pg');
@@ -13,6 +15,7 @@ app.set('view engine', 'ejs');
 app.use(express.urlencoded({extended:true}));
 app.use(express.static(__dirname + '/public'));
 
+// database connect
 const client = new pg.Client(process.env.DATABASE_URL);
 client.connect();
 client.on('error', err => console.error(err));
@@ -25,6 +28,8 @@ app.use(methodoverride((req, res) => {
   }
 }));
 
+
+// INDEX
 app.get('/', (req, res) => {
   res.render('pages/index');
 });
@@ -53,7 +58,6 @@ function Book(data) {
 }
 
 function bookSearch(req, res) {
-  console.log(req.body)
   let url = `https://www.googleapis.com/books/v1/volumes?q=${req.body.search}`;
   if (req.body.searchType === 'title') { url += `+intitle:${req.body.search}`;}
   if (req.body.searchType === 'author') { url += `+inauthor:${req.body.search}`;}
@@ -110,8 +114,6 @@ function saveBook(req, res) {
     })
     .catch(error => handleError(error))
 }
-
-
 
 // ERROR HANDLER //
 function handleError(error, res){

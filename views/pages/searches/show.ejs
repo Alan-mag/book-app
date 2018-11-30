@@ -1,20 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <title>Book Application</title>
-    <link rel="stylesheet" type="text/css" href="styles/reset.css" />
-    <link rel="stylesheet" type="text/css" href="styles/base.css" />
-    <link rel="stylesheet" type="text/css" href="styles/nav.css" />
-</head>
+    <%- include ../../layout/head.ejs %>
 <body class="container">
 <header>
   <%- include ../../layout/nav.ejs %>
 </header>
 
 <main>
-  <div class="subheading">
-    <h3>Search Results</h3>
-  </div>
+  <%- include('../../layout/subheader.ejs', {title: 'Search Results'}); %>
     <ul>
         <% searchResults.forEach(function(book) { %>
           <div class="book-card">
@@ -44,13 +37,6 @@
       </ul>
 </main>
 
-<footer>
-  
-</footer>
-<script
-  src="https://code.jquery.com/jquery-3.3.1.min.js"
-  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-  crossorigin="anonymous"></script>
-<script type="text/javascript" src="js/app.js"></script>
+<%- include ../../layout/footer.ejs %>
 </body>
 </html>

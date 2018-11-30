@@ -8,5 +8,9 @@
         <div>
             <%= book.book_description %>
         </div>
+        <button class="edit-btn" onclick="selectBook()">Edit</button>
+        <div class="edit-div">
+            <%- include ./edit.ejs %>
+        </div>
     </div>
   </section>
