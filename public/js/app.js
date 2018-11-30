@@ -1,6 +1,5 @@
 
 function selectBook(bk) {
-  console.log('you selected ', bk)
   $('.edit-div').toggle('on')
 }
 

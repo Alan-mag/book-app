@@ -1,32 +1,32 @@
 <form action="/update" method="post">
-  <label for="title">
-      <span>Title</span>
-      <input class="" type="text" name="searchType" value="<%=book.title%>" required>
-  </label>
+    <label for="title">
+        <span>Title</span>
+        <input class="" type="text" name="title" value="<%=book.title%>" required>
+    </label>
 
-  <label for="author">
-      <span>Author</span>
-      <input class="" type="text" name="searchType" value="<%=book.authors%>" required>
-  </label>
+    <label for="authors">
+        <span>Author</span>
+        <input class="" type="text" name="authors" value="<%=book.authors%>" required>
+    </label>
 
-  <label for="isbn">
-      <span>ISBN</span>
-      <input class="" type="text" name="searchType" value="<%=book.isbn%>" required>
-  </label>
+    <label for="isbn">
+        <span>ISBN</span>
+        <input class="" type="text" name="isbn" value="<%=book.isbn%>" required>
+    </label>
 
-  <label for="image">
-      <span>Image URL</span>
-      <input class="" type="text" name="searchType" value="<%=book.image_url%>" required>
-  </label>
+    <label for="image_url">
+        <span>Image URL</span>
+        <input class="" type="text" name="image_url" value="<%=book.image_url%>" required>
+    </label>
 
-  <label for="description">
-      <span>Description</span>
-      <input class="" type="text" name="searchType" value="<%=book.book_description%>" required>
-  </label>
+    <label for="description">
+        <span>Description</span>
+        <input class="" type="text" name="book_description" value="<%=book.book_description%>" required>
+    </label>
 
-  <label for="bookshelf">
-      <span>BookShelf</span>
-      <select name="bookshelf">
+    <label for="bookshelf">
+        <span>BookShelf</span>
+        <select name="bookshelf">
             <%
                   var options = [ "favorites", "sci-fi", "biographies"];
                   for ( var i = 0; i < options.length; i++ )
@@ -34,12 +34,16 @@
                       var selected = ( book.bookshelf == options[i] ) ? "selected" : "";
             %>
             <option value="<%=options[ i ] %>" <%=selected %>>
-              <%=options[i] %>
+                <%=options[i] %>
             </option>
             <%
                   }
                   %>
-          </select>
-  </label>
-  <button class="update-btn" type="submit">Update</button>
+        </select>
+    </label>
+    <% if (book.id) { %>
+      <input class="hidden" type="text" name="id" value="<%=book.id%>">
+    <% } %>
+    
+    <button class="update-btn" type="submit">Update</button>
 </form>
