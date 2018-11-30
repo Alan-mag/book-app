@@ -33,7 +33,7 @@ app.get('/', (req, res) => {
 app.get('/saved', getBookCollection);
 app.get('/books/:book_id', getSingleBook);
 app.get('/searches', getBook);
-app.post('/searches', buildSearch);
+app.post('/searches', bookSearch);
 app.post('/books', saveBook);
 
 //error page
@@ -53,7 +53,7 @@ function Book(data) {
   this.language = data.volumeInfo.language ? data.volumeInfo.language : 'Unknown Language';
 }
 
-function buildSearch(req, res) {
+function bookSearch(req, res) {
   console.log(req.body)
   let url = `https://www.googleapis.com/books/v1/volumes?q=${req.body.search}`;
   if (req.body.searchType === 'title') { url += `+intitle:${req.body.search}`;}
@@ -106,8 +106,15 @@ function getBookCollection(req, res) {
   const SQL = `SELECT * FROM books;`;
 
   return client.query(SQL)
-    .then(results => res.render('pages/saved', {books: results.rows}))
-    .catch(handleError);
+    .then(results => {
+      if (results.rows[0]) {
+        res.render('pages/saved', {books: results.rows})
+      } else {
+        console.log('no saved book results')
+        res.render('pages/index');
+      }
+    })
+    .catch(err => handleError(err, res));
 }
 
 function getSingleBook(req, res) {
