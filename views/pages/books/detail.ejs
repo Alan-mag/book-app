@@ -10,7 +10,7 @@
         </div>
         <button class="edit-btn" onclick="selectBook()">Edit</button>
         <div class="edit-div">
-            <%- include ./edit.ejs %>
+            <%- include('./edit.ejs', {book:book}); %>
         </div>
     </div>
   </section>

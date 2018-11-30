@@ -1,35 +1,45 @@
 <form action="/update" method="post">
   <label for="title">
       <span>Title</span>
-      <input class="" type="radio" name="searchType" value="title" required>
+      <input class="" type="text" name="searchType" value="<%=book.title%>" required>
   </label>
 
   <label for="author">
       <span>Author</span>
-      <input class="" type="radio" name="searchType" value="author" required>
+      <input class="" type="text" name="searchType" value="<%=book.authors%>" required>
   </label>
 
   <label for="isbn">
       <span>ISBN</span>
-      <input class="" type="radio" name="searchType" value="author" required>
+      <input class="" type="text" name="searchType" value="<%=book.isbn%>" required>
   </label>
 
   <label for="image">
-      <span>Image</span>
-      <input class="" type="radio" name="searchType" value="author" required>
+      <span>Image URL</span>
+      <input class="" type="text" name="searchType" value="<%=book.image_url%>" required>
   </label>
 
   <label for="description">
       <span>Description</span>
-      <input class="" type="radio" name="searchType" value="author" required>
+      <input class="" type="text" name="searchType" value="<%=book.book_description%>" required>
   </label>
 
   <label for="bookshelf">
-      <span>BookShelt</span>
-      <select>
-        <option>Favorites</option>
-        <option>Other</option>
-      </select>
+      <span>BookShelf</span>
+      <select name="bookshelf">
+            <%
+                  var options = [ "favorites", "sci-fi", "biographies"];
+                  for ( var i = 0; i < options.length; i++ )
+                  {
+                      var selected = ( book.bookshelf == options[i] ) ? "selected" : "";
+            %>
+            <option value="<%=options[ i ] %>" <%=selected %>>
+              <%=options[i] %>
+            </option>
+            <%
+                  }
+                  %>
+          </select>
   </label>
-  <button id="update-btn">Update</button>
+  <button class="update-btn" type="submit">Update</button>
 </form>

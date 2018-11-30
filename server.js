@@ -39,6 +39,7 @@ app.get('/saved', getBookCollection);
 app.get('/books/:book_id', getSingleBook);
 app.post('/searches', bookSearch);
 app.post('/books', saveBook);
+app.post('/update', updateBook);
 
 //error page
 app.get('/error', (req, res) =>{ res.render('pages/error'); });
@@ -113,6 +114,10 @@ function saveBook(req, res) {
       res.redirect(`/books/${book.rows[0].id}`)
     })
     .catch(error => handleError(error))
+}
+
+function updateBook(req, res) {
+
 }
 
 // ERROR HANDLER //
