@@ -29,6 +29,10 @@ main {
   background-color: lightgoldenrodyellow;
 }
 
+.hidden {
+  display: none;
+}
+
 .book-card {
   text-align: center;
   width: 250px;

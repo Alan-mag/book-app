@@ -1,42 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
-    <%- include ../../layout/head.ejs %>
+<%- include ../../layout/head.ejs %>
+
 <body class="container">
-<header>
-  <%- include ../../layout/nav.ejs %>
-</header>
+  <header>
+    <%- include ../../layout/nav.ejs %>
+  </header>
 
-<main>
-  <%- include('../../layout/subheader.ejs', {title: 'Search Results'}); %>
+  <main>
+    <%- include('../../layout/subheader.ejs', {title: 'Search Results'}); %>
     <ul>
-        <% searchResults.forEach(function(book) { %>
-          <div class="book-card">
-            <div class="image-container">
-                <img src="<%= book.image %>" />
-            </div>
-            <h3><%= book.title %></h3>
-            <h5><%= book.author %></h5>
-            <div>
-              <p class="description"><%= book.description %></p>
-              <form action='/books' method='POST'>
-                <select>
-                  <option value="favorites">Favorites</option>
-                  <option value="sci-fi">Sci-Fi</option>
-                  <option value="biographies">Biographies</option>
-                </select>
-                <input type="hidden" name="title" value="<%= book.title %>">
-                <input type="hidden" name="authors" value="<%= book.authors %>">
-                <input type="hidden" name="image_url" value="<%= book.image %>">
-                <input type="hidden" name="isbn" value="<%= book.isbn %>">
-                <input type="hidden" name="book_description" value="<%= book.description %>">
-                <button class="submit-btn" type="submit">Save Book</button>
-              </form>
-            </div>
-          </div>
-        <% }); %>
-      </ul>
-</main>
+      <% searchResults.forEach(function(book) { %>
+      <div class="book-card">
+        <div class="image-container">
+          <img src="<%= book.image %>" />
+        </div>
+        <h3>
+          <%= book.title %>
+        </h3>
+        <h5>
+          <%= book.author %>
+        </h5>
+        <div>
+          <p class="description">
+            <%= book.description %>
+          </p>
+          <form action='/books' method='POST'>
+            <select name="bookshelf">
+              <%
+                var options = [ "favorites", "sci-fi", "biographies"];
+                for ( var i = 0; i < options.length; i++ ) { %>
+                  <option value="<%=options[ i ] %>">
+                    <%=options[i] %>
+                  </option>
+              <%
+                }
+              %>
+            </select>
+            <input type="hidden" name="title" value="<%= book.title %>">
+            <input type="hidden" name="authors" value="<%= book.authors %>">
+            <input type="hidden" name="image_url" value="<%= book.image %>">
+            <input type="hidden" name="isbn" value="<%= book.isbn %>">
+            <input type="hidden" name="book_description" value="<%= book.description %>">
+            <button class="submit-btn" type="submit">Save Book</button>
+          </form>
+        </div>
+      </div>
+      <% }); %>
+    </ul>
+  </main>
 
-<%- include ../../layout/footer.ejs %>
+  <%- include ../../layout/footer.ejs %>
 </body>
+
 </html>

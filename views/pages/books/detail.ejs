@@ -9,8 +9,12 @@
             <%= book.book_description %>
         </div>
         <button class="edit-btn" onclick="selectBook()">Edit</button>
+        <form class="delete" action="/delete" method="POST">
+            <input class="hidden" name="id" value="<%= book.id %>">
+            <input type="submit" value="Remove Book">
+        </form>
         <div class="edit-div">
-            <%- include ./edit.ejs %>
+            <%- include('./edit.ejs', {book:book}); %>
         </div>
     </div>
   </section>
