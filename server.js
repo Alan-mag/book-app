@@ -40,6 +40,7 @@ app.get('/books/:book_id', getSingleBook);
 app.post('/searches', bookSearch);
 app.post('/books', saveBook);
 app.post('/update', updateBook);
+app.post('/delete', deleteBook);
 
 //error page
 app.get('/error', (req, res) => { res.render('pages/error'); });
@@ -124,6 +125,13 @@ function updateBook(req, res) {
       res.redirect(`/books/${req.body.id}`)
     })
     .catch(error => handleError(error))
+}
+
+function deleteBook(req, res) {
+  const values = [req.body.id];
+  const SQL = `DELETE FROM books WHERE id=$1;`;
+  client.query(SQL, values);
+  res.redirect(`/saved`);
 }
 
 // ERROR HANDLER //
